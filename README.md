@@ -1,4 +1,4 @@
-# Simple-BlockChain
+# SimpleBlock Chain Program
 -----------------
 ### This is by no means a complete implementation and it is by no means secure!.
 -----------------
