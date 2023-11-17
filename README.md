@@ -17,6 +17,7 @@ node main.js
 ```
 
 This is how Block Chain looks like.
+
 <img width="1440" alt="1" src="https://github.com/Lynk4/Simple-BlockChain/assets/44930131/fc51fb51-b650-4e94-b2fd-b4a4cbbce5cd">
 
 Final Output:
