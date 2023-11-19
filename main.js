@@ -7,10 +7,19 @@ class Block{
         this.data = data;
         this.previousHash = previousHash;
         this.hash = this.claculateHash();
+        this.nonce = 0;
     }
     // creating a new method. this function will calculate the hash of the block.
     claculateHash(){
-        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+    }
+
+    mineBlock(difficulty){
+        while(this.hash.substring(0, difficulty) != Array(difficulty + 1).join("0")){
+            this.nonce++;
+            this.hash = this.claculateHash();
+        }
+        console.log("Block mined: " + this.hash);
     }
 }
 
@@ -18,6 +27,7 @@ class Block{
 class Blockchain{
     constructor(){
         this.chain = [this.createGenesisBlock()];
+        this.difficulty = 4;
     }
 
     // the first block in a blockchain is called the genesis block and it is added manually so create a method for that.
@@ -36,7 +46,7 @@ class Blockchain{
     addBlock(newBlock){
 
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.claculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
@@ -61,8 +71,13 @@ class Blockchain{
 
 // creating a new instance of the blockchain.
 let lynk4coin = new Blockchain();
+console.log('Mining block 1..........');
 lynk4coin.addBlock(new Block(1, "18/11/2023", {amount: 18}));
+console.log('Mining block 2..........');
 lynk4coin.addBlock(new Block(2, "19/11/2023", {amount: 19}));
+
+
+
 
 // let's see how the block chain looks like.
 console.log(JSON.stringify(lynk4coin, null, 4));
